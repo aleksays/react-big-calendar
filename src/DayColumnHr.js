@@ -98,7 +98,7 @@ class DayColumn extends React.Component {
     const current = getNow()
 
     if (current >= min && current <= max) {
-      const top = this.slotMetrics.getCurrentTimePosition(current)
+      const top = this.slotMetrics.getCurrentTimePositionHr(current)
       this.intervalTriggered = true
       this.setState({ timeIndicatorPosition: top })
     } else {
@@ -160,14 +160,20 @@ class DayColumn extends React.Component {
         </EventContainer>
 
         {selecting && (
-          <div className="rbc-slot-selection" style={{ top, height }}>
+          <div
+            className="rbc-slot-selection"
+            style={{ left: top, width: height, height: 100 }}
+          >
             <span>{localizer.format(selectDates, 'selectRangeFormat')}</span>
           </div>
         )}
         {isNow && this.intervalTriggered && (
           <div
             className="rbc-current-time-indicator"
-            style={{ top: `${this.state.timeIndicatorPosition}%` }}
+            style={{
+              top: `${this.state.timeIndicatorPosition}%`,
+              left: `${this.state.timeIndicatorPosition}%`,
+            }}
           />
         )}
       </div>

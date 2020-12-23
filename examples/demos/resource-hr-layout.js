@@ -144,6 +144,7 @@ class ResourceHrLayout extends React.Component {
         resourceTitleAccessor="resourceTitle"
         onEventDrop={this.moveEvent}
         onEventResize={this.resizeEvent}
+        selectable
       />
     )
   }
