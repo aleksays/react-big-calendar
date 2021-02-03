@@ -105,7 +105,7 @@ class TimelineContainerWrapper extends React.Component {
 
     this.update(
       event,
-      slotMetrics.getRangeTimeline(currentSlot, end, false, true)
+      slotMetrics.getRangeTimeline(currentSlot, end, false, false)
     )
   }
 
