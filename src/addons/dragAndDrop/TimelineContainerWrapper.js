@@ -7,7 +7,7 @@ import Selection, {
   getBoundsForNode,
   getEventNodeFromPoint,
 } from '../../Selection'
-import TimeGridEvent from '../../TimeGridEventHr'
+import TimelineEvent from '../../TimelineEvent'
 import { dragAccessors } from './common'
 import NoopWrapper from '../../NoopWrapper'
 
@@ -17,7 +17,7 @@ const pointInColumn = (bounds, { x, y }) => {
 }
 const propTypes = {}
 
-class EventContainerWrapper extends React.Component {
+class TimelineContainerWrapper extends React.Component {
   static propTypes = {
     accessors: PropTypes.object.isRequired,
     components: PropTypes.object.isRequired,
@@ -53,7 +53,13 @@ class EventContainerWrapper extends React.Component {
 
   reset() {
     if (this.state.event)
-      this.setState({ event: null, top: null, height: null })
+      this.setState({
+        event: null,
+        top: null,
+        height: null,
+        left: null,
+        width: null,
+      })
   }
 
   update(event, { startDate, endDate, left, width, top, height }) {
@@ -85,7 +91,7 @@ class EventContainerWrapper extends React.Component {
     }
 
     let currentSlot = slotMetrics.closestSlotFromPointHr(
-      { y: point.y - this.eventOffsetTop, x: point.x },
+      { x: point.x },
       boundaryBox
     )
 
@@ -97,7 +103,10 @@ class EventContainerWrapper extends React.Component {
       'minutes'
     )
 
-    this.update(event, slotMetrics.getRangeHr(currentSlot, end, false, true))
+    this.update(
+      event,
+      slotMetrics.getRangeTimeline(currentSlot, end, false, true)
+    )
   }
 
   handleResize(point, boundaryBox) {
@@ -114,7 +123,7 @@ class EventContainerWrapper extends React.Component {
       end = dates.max(currentSlot, slotMetrics.closestSlotFromDate(start))
     }
 
-    this.update(event, slotMetrics.getRangeHr(start, end))
+    this.update(event, slotMetrics.getRangeTimeline(start, end))
   }
 
   handleDropFromOutside = (point, boundaryBox) => {
@@ -137,7 +146,7 @@ class EventContainerWrapper extends React.Component {
     let node = findDOMNode(this)
     let isBeingDragged = false
     let selector = (this._selector = new Selection(() =>
-      node.closest('.rbc-time-view')
+      node.closest('.rbc-time-row')
     ))
 
     selector.on('beforeSelect', point => {
@@ -257,7 +266,7 @@ class EventContainerWrapper extends React.Component {
           {events}
 
           {event && (
-            <TimeGridEvent
+            <TimelineEvent
               event={event}
               label={label}
               className="rbc-addons-dnd-drag-preview"
@@ -275,6 +284,6 @@ class EventContainerWrapper extends React.Component {
   }
 }
 
-EventContainerWrapper.propTypes = propTypes
+TimelineContainerWrapper.propTypes = propTypes
 
-export default EventContainerWrapper
+export default TimelineContainerWrapper

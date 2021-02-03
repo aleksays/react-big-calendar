@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import { accessor } from '../../utils/propTypes'
 import { accessor as get } from '../../utils/accessors'
 
-class EventWrapper extends React.Component {
+class TimelineEventWrapper extends React.Component {
   static contextTypes = {
     draggable: PropTypes.shape({
       onStart: PropTypes.func,
@@ -161,4 +161,4 @@ class EventWrapper extends React.Component {
   }
 }
 
-export default EventWrapper
+export default TimelineEventWrapper

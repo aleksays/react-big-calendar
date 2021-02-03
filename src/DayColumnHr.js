@@ -11,7 +11,7 @@ import { isSelected } from './utils/selection'
 import { notify } from './utils/helpers'
 import * as DayEventLayout from './utils/DayEventLayout'
 import TimeSlotGroup from './TimeSlotGroupHr'
-import TimeGridEvent from './TimeGridEventHr'
+import TimelineEvent from './TimelineEvent'
 import { DayLayoutAlgorithmPropType } from './utils/propTypes'
 
 class DayColumn extends React.Component {
@@ -115,7 +115,10 @@ class DayColumn extends React.Component {
       accessors,
       localizer,
       getters: { dayProp, ...getters },
-      components: { eventContainerWrapper: EventContainer, ...components },
+      components: {
+        timelineContainerWrapper: TimelineContainerWrapper,
+        ...components
+      },
     } = this.props
 
     let { slotMetrics } = this
@@ -146,7 +149,7 @@ class DayColumn extends React.Component {
             components={components}
           />
         ))}
-        <EventContainer
+        <TimelineContainerWrapper
           localizer={localizer}
           resource={resource}
           accessors={accessors}
@@ -157,7 +160,7 @@ class DayColumn extends React.Component {
           <div className={clsx('rbc-events-container', rtl && 'rtl')}>
             {this.renderEvents()}
           </div>
-        </EventContainer>
+        </TimelineContainerWrapper>
 
         {selecting && (
           <div
@@ -224,7 +227,7 @@ class DayColumn extends React.Component {
       let continuesLater = startsAfterDay || slotMetrics.startsAfter(end)
 
       return (
-        <TimeGridEvent
+        <TimelineEvent
           style={style}
           event={event}
           label={label}

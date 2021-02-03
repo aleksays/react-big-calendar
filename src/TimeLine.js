@@ -16,7 +16,7 @@ import { inRange, sortEvents } from './utils/eventLevels'
 import Resources from './utils/Resources'
 import { DayLayoutAlgorithmPropType } from './utils/propTypes'
 
-export default class TimeGrid extends Component {
+export default class TimeLine extends Component {
   constructor(props) {
     super(props)
 
@@ -310,7 +310,7 @@ export default class TimeGrid extends Component {
   )
 }
 
-TimeGrid.propTypes = {
+TimeLine.propTypes = {
   events: PropTypes.array.isRequired,
   resources: PropTypes.array,
 
@@ -349,7 +349,7 @@ TimeGrid.propTypes = {
   dayLayoutAlgorithm: DayLayoutAlgorithmPropType,
 }
 
-TimeGrid.defaultProps = {
+TimeLine.defaultProps = {
   step: 30,
   timeslots: 2,
   min: dates.startOf(new Date(), 'day'),

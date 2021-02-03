@@ -1,9 +1,9 @@
 import React from 'react'
 import * as dates from 'date-arithmetic'
 import { Calendar, Views } from 'react-big-calendar'
-import TimeGrid from 'react-big-calendar/lib/TimeGridHr'
+import TimeLine from 'react-big-calendar/lib/TimeLine'
 import ExampleControlSlot from '../ExampleControlSlot'
-import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop/withDragAndDropHr'
+import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.scss'
 
@@ -34,9 +34,9 @@ const events = [
   {
     id: 2,
     title: 'Team lead meeting',
-    start: new Date(2018, 0, 29, 8, 30, 0),
-    end: new Date(2018, 0, 29, 9, 30, 0),
-    resourceId: 3,
+    start: new Date(2018, 0, 29, 12, 30, 0),
+    end: new Date(2018, 0, 29, 15, 30, 0),
+    resourceId: [1, 3],
   },
   {
     id: 11,
@@ -59,7 +59,7 @@ class MyLayout extends React.Component {
     let { date } = this.props
     let range = MyLayout.range(date)
 
-    return <TimeGrid {...this.props} range={range} eventOffset={15} />
+    return <TimeLine {...this.props} range={range} eventOffset={15} />
   }
 }
 
@@ -134,7 +134,7 @@ class ResourceHrLayout extends React.Component {
         events={events}
         localizer={localizer}
         defaultView={Views.DAY}
-        views={{ day: MyLayout }}
+        views={{ day: MyLayout, month: true, week: true }}
         min={new Date(0, 0, 0, 6, 0)}
         max={new Date(0, 0, 0, 22, 0)}
         step={60}
