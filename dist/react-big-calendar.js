@@ -12429,7 +12429,7 @@
           endDate: rangeEnd,
         }
       },
-      getRangeHr: function getRangeHr(
+      getRangeTimeline: function getRangeTimeline(
         rangeStart,
         rangeEnd,
         ignoreMin,
@@ -12439,15 +12439,15 @@
         if (!ignoreMax) rangeEnd = min(end, max(start, rangeEnd))
         var rangeStartMin = positionFromDate(rangeStart)
         var rangeEndMin = positionFromDate(rangeEnd)
-        var top =
+        var left =
           rangeEndMin > step * numSlots && !eq(end, rangeEnd)
             ? ((rangeStartMin - step) / (step * numSlots)) * 100
             : (rangeStartMin / (step * numSlots)) * 100
         return {
-          left: top,
-          top: top,
-          width: (rangeEndMin / (step * numSlots)) * 100 - top,
-          height: (rangeEndMin / (step * numSlots)) * 100 - top,
+          top: left,
+          left: left,
+          width: (rangeEndMin / (step * numSlots)) * 100 - left,
+          height: (rangeEndMin / (step * numSlots)) * 100 - left,
           start: positionFromDate(rangeStart),
           startDate: rangeStart,
           end: positionFromDate(rangeEnd),
