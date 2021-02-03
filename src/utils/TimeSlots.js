@@ -150,22 +150,22 @@ export function getSlotMetrics({ min: start, max: end, step, timeslots }) {
       }
     },
 
-    getRangeHr(rangeStart, rangeEnd, ignoreMin, ignoreMax) {
+    getRangeTimeline(rangeStart, rangeEnd, ignoreMin, ignoreMax) {
       if (!ignoreMin) rangeStart = dates.min(end, dates.max(start, rangeStart))
       if (!ignoreMax) rangeEnd = dates.min(end, dates.max(start, rangeEnd))
 
       const rangeStartMin = positionFromDate(rangeStart)
       const rangeEndMin = positionFromDate(rangeEnd)
-      const top =
+      const left =
         rangeEndMin > step * numSlots && !dates.eq(end, rangeEnd)
           ? ((rangeStartMin - step) / (step * numSlots)) * 100
           : (rangeStartMin / (step * numSlots)) * 100
 
       return {
-        left: top,
-        top,
-        width: (rangeEndMin / (step * numSlots)) * 100 - top,
-        height: (rangeEndMin / (step * numSlots)) * 100 - top,
+        top: left,
+        left,
+        width: (rangeEndMin / (step * numSlots)) * 100 - left,
+        height: (rangeEndMin / (step * numSlots)) * 100 - left,
         start: positionFromDate(rangeStart),
         startDate: rangeStart,
         end: positionFromDate(rangeEnd),

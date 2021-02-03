@@ -6,7 +6,7 @@ function stringifyPercent(v) {
 }
 
 /* eslint-disable react/prop-types */
-function TimeGridEvent(props) {
+function TimelineEvent(props) {
   const {
     style,
     className,
@@ -20,7 +20,7 @@ function TimeGridEvent(props) {
     onClick,
     onDoubleClick,
     onKeyPress,
-    components: { event: Event, eventWrapper: EventWrapper },
+    components: { event: Event, timelineEventWrapper: TimelineEventWrapper },
   } = props
   let title = accessors.title(event)
   let tooltip = accessors.tooltip(event)
@@ -40,7 +40,7 @@ function TimeGridEvent(props) {
   ]
 
   return (
-    <EventWrapper type="time" {...props}>
+    <TimelineEventWrapper type="time" {...props}>
       <div
         onClick={onClick}
         onDoubleClick={onDoubleClick}
@@ -70,8 +70,8 @@ function TimeGridEvent(props) {
       >
         {inner}
       </div>
-    </EventWrapper>
+    </TimelineEventWrapper>
   )
 }
 
-export default TimeGridEvent
+export default TimelineEvent

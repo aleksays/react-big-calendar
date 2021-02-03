@@ -4,7 +4,9 @@ import clsx from 'clsx'
 
 import { accessor } from '../../utils/propTypes'
 import EventWrapper from './EventWrapper'
+import TimelineEventWrapper from './TimelineEventWrapper'
 import EventContainerWrapper from './EventContainerWrapper'
+import TimelineContainerWrapper from './TimelineContainerWrapper'
 import WeekWrapper from './WeekWrapper'
 import { mergeComponents } from './common'
 
@@ -117,6 +119,8 @@ export default function withDragAndDrop(Calendar) {
       this.components = mergeComponents(components, {
         eventWrapper: EventWrapper,
         eventContainerWrapper: EventContainerWrapper,
+        timelineEventWrapper: TimelineEventWrapper,
+        timelineContainerWrapper: TimelineContainerWrapper,
         weekWrapper: WeekWrapper,
       })
 
