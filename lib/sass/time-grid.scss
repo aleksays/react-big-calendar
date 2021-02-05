@@ -19,11 +19,10 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
   border-top: 2px solid $cell-border;
 
   .rbc-day-slot {
-    height: 100%;
+    height: 115px;
   }
 }
 
@@ -39,6 +38,8 @@
     display: grid;
     grid-template-columns: 140px 1fr;
     grid-template-rows: 42px 1fr;
+    min-height: 380px;
+    flex: none;
 
     .rbc-timeslot-group {
       flex-flow: row;
@@ -148,11 +149,14 @@
     border: none;
     border-bottom: 1px solid $cell-border;
     justify-content: center;
+    height: 115px;
     &:first-child {
       border-top: 2px solid $cell-border;
     }
     .rbc-resource {
       border: none;
+      display: flex;
+      align-items: center;
       .rbc-header {
         border: none;
         padding: 1rem;

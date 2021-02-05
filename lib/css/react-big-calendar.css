@@ -557,11 +557,10 @@ button.rbc-input::-moz-focus-inner {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  height: 100%;
   border-top: 2px solid #ddd;
 }
 .rbc-time-grid--hr .rbc-day-slot {
-  height: 100%;
+  height: 115px;
 }
 
 .rbc-time-view {
@@ -576,6 +575,8 @@ button.rbc-input::-moz-focus-inner {
   display: grid;
   grid-template-columns: 140px 1fr;
   grid-template-rows: 42px 1fr;
+  min-height: 380px;
+  flex: none;
 }
 .rbc-time-view-resources--hr .rbc-timeslot-group {
   flex-flow: row;
@@ -663,12 +664,15 @@ button.rbc-input::-moz-focus-inner {
   border: none;
   border-bottom: 1px solid #ddd;
   justify-content: center;
+  height: 115px;
 }
 .rbc-time-header-content--hr:first-child {
   border-top: 2px solid #ddd;
 }
 .rbc-time-header-content--hr .rbc-resource {
   border: none;
+  display: flex;
+  align-items: center;
 }
 .rbc-time-header-content--hr .rbc-resource .rbc-header {
   border: none;
