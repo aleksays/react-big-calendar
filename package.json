@@ -1,14 +1,14 @@
 {
   "name": "react-big-calendar",
-  "version": "0.23.0",
-  "description": "Calendar! with events",
+  "version": "0.23.1",
+  "description": "Calendar! with events, Timeline view",
   "author": {
-    "name": "Jason Quense",
-    "email": "monastic.panic@gmail.com"
+    "name": "Alex Levicky",
+    "email": "alek.levickyj@gmail.com"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/jquense/react-big-calendar.git"
+    "url": "git+https://github.com/aleksays/react-big-calendar"
   },
   "license": "MIT",
   "main": "lib/index.js",
