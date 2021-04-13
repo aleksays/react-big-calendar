@@ -278,7 +278,7 @@ class DayColumn extends React.Component {
     }
 
     let selectionState = point => {
-      let currentSlot = this.slotMetrics.closestSlotFromPoint(
+      let currentSlot = this.slotMetrics.closestSlotFromPointHr(
         point,
         getBoundsForNode(node)
       )
