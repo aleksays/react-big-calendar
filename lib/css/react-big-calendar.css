@@ -575,7 +575,7 @@ button.rbc-input::-moz-focus-inner {
   display: grid;
   grid-template-columns: 140px 1fr;
   grid-template-rows: 42px 1fr;
-  min-height: 380px;
+  min-height: 115px;
   flex: none;
 }
 .rbc-time-view-resources--hr .rbc-timeslot-group {

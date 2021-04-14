@@ -22,7 +22,7 @@
   border-top: 2px solid $cell-border;
 
   .rbc-day-slot {
-    height: 115px;
+    height: $timeline-view-height-row;
   }
 }
 
@@ -38,7 +38,7 @@
     display: grid;
     grid-template-columns: 140px 1fr;
     grid-template-rows: 42px 1fr;
-    min-height: 380px;
+    min-height: $timeline-view-height-row;
     flex: none;
 
     .rbc-timeslot-group {
@@ -149,7 +149,7 @@
     border: none;
     border-bottom: 1px solid $cell-border;
     justify-content: center;
-    height: 115px;
+    height: $timeline-view-height-row;
     &:first-child {
       border-top: 2px solid $cell-border;
     }
