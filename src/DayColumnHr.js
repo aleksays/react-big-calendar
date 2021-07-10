@@ -4,6 +4,7 @@ import { findDOMNode } from 'react-dom'
 import clsx from 'clsx'
 
 import Selection, { getBoundsForNode, isEvent } from './Selection'
+import DateContentRow from './DateContentRow'
 import * as dates from './utils/dates'
 import * as TimeSlotUtils from './utils/TimeSlots'
 import { isSelected } from './utils/selection'
@@ -114,6 +115,12 @@ class DayColumn extends React.Component {
       resource,
       accessors,
       localizer,
+      getNow,
+      selectable,
+      range,
+      resources,
+      alldayEvents,
+      id,
       getters: { dayProp, ...getters },
       components: {
         timelineContainerWrapper: TimelineContainerWrapper,
@@ -128,58 +135,85 @@ class DayColumn extends React.Component {
 
     const { className, style } = dayProp(max)
 
+    const groupedEvents = resources.groupEvents(alldayEvents)
+
     return (
-      <div
-        style={style}
-        className={clsx(
-          className,
-          'rbc-day-slot',
-          'rbc-time-row rbc-time-row--hr',
-          isNow && 'rbc-now',
-          isNow && 'rbc-today', // WHY
-          selecting && 'rbc-slot-selecting'
-        )}
-      >
-        {slotMetrics.groups.map((grp, idx) => (
-          <TimeSlotGroup
-            key={idx}
-            group={grp}
+      <>
+        <div className="rbc-time-row rbc-time-row--hr rbc-time-row--allday">
+          <DateContentRow
+            isAllDay
+            rtl={rtl}
+            getNow={getNow}
+            minRows={2}
+            range={range}
+            events={groupedEvents.get(id) || []}
+            resourceId={resource && id}
+            className="rbc-allday-cell"
+            selectable={selectable}
+            selected={this.props.selected}
+            components={components}
+            accessors={accessors}
+            getters={{ dayProp, ...getters }}
+            localizer={localizer}
+            onSelect={this.props.onSelectEvent}
+            onDoubleClick={this.props.onDoubleClickEvent}
+            onKeyPress={this.props.onKeyPressEvent}
+            onSelectSlot={this.props.onSelectSlot}
+            longPressThreshold={this.props.longPressThreshold}
+          />
+        </div>
+        <div
+          style={style}
+          className={clsx(
+            className,
+            'rbc-day-slot',
+            'rbc-time-row rbc-time-row--hr',
+            isNow && 'rbc-now',
+            isNow && 'rbc-today', // WHY
+            selecting && 'rbc-slot-selecting'
+          )}
+        >
+          {slotMetrics.groups.map((grp, idx) => (
+            <TimeSlotGroup
+              key={idx}
+              group={grp}
+              resource={resource}
+              getters={getters}
+              components={components}
+            />
+          ))}
+          <TimelineContainerWrapper
+            localizer={localizer}
             resource={resource}
+            accessors={accessors}
             getters={getters}
             components={components}
-          />
-        ))}
-        <TimelineContainerWrapper
-          localizer={localizer}
-          resource={resource}
-          accessors={accessors}
-          getters={getters}
-          components={components}
-          slotMetrics={slotMetrics}
-        >
-          <div className={clsx('rbc-events-container', rtl && 'rtl')}>
-            {this.renderEvents()}
-          </div>
-        </TimelineContainerWrapper>
-
-        {selecting && (
-          <div
-            className="rbc-slot-selection"
-            style={{ left: top, width: height, height: 100 }}
+            slotMetrics={slotMetrics}
           >
-            <span>{localizer.format(selectDates, 'selectRangeFormat')}</span>
-          </div>
-        )}
-        {isNow && this.intervalTriggered && (
-          <div
-            className="rbc-current-time-indicator"
-            style={{
-              top: `${this.state.timeIndicatorPosition}%`,
-              left: `${this.state.timeIndicatorPosition}%`,
-            }}
-          />
-        )}
-      </div>
+            <div className={clsx('rbc-events-container', rtl && 'rtl')}>
+              {this.renderEvents()}
+            </div>
+          </TimelineContainerWrapper>
+
+          {selecting && (
+            <div
+              className="rbc-slot-selection"
+              style={{ left: top, width: height, height: 100 }}
+            >
+              <span>{localizer.format(selectDates, 'selectRangeFormat')}</span>
+            </div>
+          )}
+          {isNow && this.intervalTriggered && (
+            <div
+              className="rbc-current-time-indicator"
+              style={{
+                top: `${this.state.timeIndicatorPosition}%`,
+                left: `${this.state.timeIndicatorPosition}%`,
+              }}
+            />
+          )}
+        </div>
+      </>
     )
   }
 
@@ -389,12 +423,16 @@ class DayColumn extends React.Component {
 
 DayColumn.propTypes = {
   events: PropTypes.array.isRequired,
+  range: PropTypes.array.isRequired,
   step: PropTypes.number.isRequired,
   date: PropTypes.instanceOf(Date).isRequired,
   min: PropTypes.instanceOf(Date).isRequired,
   max: PropTypes.instanceOf(Date).isRequired,
   getNow: PropTypes.func.isRequired,
   isNow: PropTypes.bool,
+  resources: PropTypes.object,
+  alldayEvents: PropTypes.array,
+  id: PropTypes.number,
 
   rtl: PropTypes.bool,
 
