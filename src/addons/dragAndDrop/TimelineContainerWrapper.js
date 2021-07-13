@@ -129,10 +129,7 @@ class TimelineContainerWrapper extends React.Component {
   handleDropFromOutside = (point, boundaryBox) => {
     const { slotMetrics, resource } = this.props
 
-    let start = slotMetrics.closestSlotFromPoint(
-      { y: point.y, x: point.x },
-      boundaryBox
-    )
+    let start = slotMetrics.closestSlotFromPoint({ x: point.x }, boundaryBox)
 
     this.context.draggable.onDropFromOutside({
       start,

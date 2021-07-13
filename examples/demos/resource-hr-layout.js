@@ -108,14 +108,10 @@ class ResourceHrLayout extends React.Component {
     const { events } = this.state
     let allDay = event.allDay
 
-    console.log('Event: ', event)
-    console.log('isAllDay: ', droppedOnAllDaySlot)
-
     if (!event.allDay && droppedOnAllDaySlot) {
       allDay = true
     } else if (event.allDay && !droppedOnAllDaySlot) {
       allDay = false
-      console.log('handling allday')
     }
 
     const nextEvents = events.map(existingEvent => {
