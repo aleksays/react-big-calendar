@@ -139,9 +139,10 @@ class DayColumn extends React.Component {
 
     return (
       <>
-        <div className="rbc-time-row rbc-time-row--hr rbc-time-row--allday">
+        <div className="rbc-time-row rbc-time-row--allday">
           <DateContentRow
             isAllDay
+            isTimeline
             rtl={rtl}
             getNow={getNow}
             minRows={1}
@@ -167,7 +168,7 @@ class DayColumn extends React.Component {
           className={clsx(
             className,
             'rbc-day-slot',
-            'rbc-time-row rbc-time-row--hr',
+            'rbc-time-row rbc-time-row--timeline',
             isNow && 'rbc-now',
             isNow && 'rbc-today', // WHY
             selecting && 'rbc-slot-selecting'

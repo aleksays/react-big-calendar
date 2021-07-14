@@ -3,6 +3,7 @@ import React from 'react'
 import * as dates from '../../utils/dates'
 import { getSlotAtX, pointInBox } from '../../utils/selection'
 import { findDOMNode } from 'react-dom'
+import clsx from 'clsx'
 
 import { eventSegments } from '../../utils/eventLevels'
 import Selection, { getBoundsForNode } from '../../Selection'
@@ -30,6 +31,7 @@ class WeekWrapper extends React.Component {
     getters: PropTypes.object.isRequired,
     components: PropTypes.object.isRequired,
     resourceId: PropTypes.any,
+    isTimeline: PropTypes.bool,
   }
 
   static contextTypes = {
@@ -189,8 +191,11 @@ class WeekWrapper extends React.Component {
   }
 
   _selectable = () => {
+    const { isTimeline } = this.props
     let node = findDOMNode(this).closest('.rbc-month-row, .rbc-allday-cell')
-    let container = node.closest('.rbc-month-view, .rbc-time-view')
+    let container = node.closest(
+      `.rbc-month-view, ${isTimeline ? '.rbc-time-grid--hr' : '.rbc-time-view'}`
+    )
 
     let selector = (this._selector = new Selection(() => container))
 
@@ -268,12 +273,16 @@ class WeekWrapper extends React.Component {
   }
 
   render() {
-    const { children, accessors } = this.props
+    const { children, accessors, isTimeline } = this.props
+    const boxClassName = clsx(
+      'rbc-addons-dnd-row-body',
+      isTimeline && 'rbc-addons-dnd-row-body--timeline'
+    )
 
     let { segment } = this.state
 
     return (
-      <div className="rbc-addons-dnd-row-body">
+      <div className={boxClassName}>
         {children}
 
         {segment && (

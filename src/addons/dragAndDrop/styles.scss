@@ -3,6 +3,12 @@
 .rbc-addons-dnd {
   .rbc-addons-dnd-row-body {
     position: relative;
+
+    &--timeline {
+      display: flex;
+      gap: 1rem;
+      padding: 0.5rem;
+    }
   }
   .rbc-addons-dnd-drag-row {
     position: absolute;

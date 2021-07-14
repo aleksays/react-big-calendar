@@ -557,10 +557,12 @@ button.rbc-input::-moz-focus-inner {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  border-top: 2px solid #ddd;
 }
 .rbc-time-grid--hr .rbc-day-slot {
   height: 115px;
+}
+.rbc-time-grid--hr .rbc-time-row--timeline {
+  height: calc(115px - 1rem);
 }
 
 .rbc-time-view {
@@ -693,7 +695,6 @@ button.rbc-input::-moz-focus-inner {
   align-items: flex-start;
   width: 100%;
   border-top: 2px solid #ddd;
-  overflow-y: auto;
   position: relative;
 }
 .rbc-time-content--hr {
@@ -701,7 +702,7 @@ button.rbc-input::-moz-focus-inner {
   grid-row: 1 / -1;
   display: grid;
   grid-template-rows: 42px 1fr;
-  overflow: initial;
+  overflow-y: auto;
   border-top: none;
 }
 .rbc-time-content > .rbc-time-gutter {
@@ -711,6 +712,18 @@ button.rbc-input::-moz-focus-inner {
   grid-row: 1 / 2;
   display: flex;
   justify-content: space-between;
+  position: relative;
+}
+.rbc-time-content > .rbc-time-gutter--hr:after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background-color: #ddd;
+  height: 2px;
+  margin-top: 2px;
 }
 .rbc-time-content > * + * > * {
   border-left: 1px solid #ddd;
