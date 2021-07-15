@@ -2,7 +2,6 @@ import React from 'react'
 import * as dates from 'date-arithmetic'
 import { Calendar, Views } from 'react-big-calendar'
 import TimeLine from 'react-big-calendar/lib/TimeLine'
-import ExampleControlSlot from '../ExampleControlSlot'
 import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
 
 import 'react-big-calendar/lib/addons/dragAndDrop/styles.scss'
@@ -16,42 +15,47 @@ const events = [
     start: new Date(2018, 0, 29, 9, 0, 0),
     end: new Date(2018, 0, 29, 13, 0, 0),
     resourceId: 1,
+    allDay: false,
   },
-  // {
-  //   id: 5,
-  //   title: 'Board meeting 2',
-  //   start: new Date(2018, 0, 29, 8, 0, 0),
-  //   end: new Date(2018, 0, 29, 10, 0, 0),
-  //   resourceId: 1,
-  // },
-  // {
-  //   id: 1,
-  //   title: 'MS training',
-  //   start: new Date(2018, 0, 29, 14, 0, 0),
-  //   end: new Date(2018, 0, 29, 16, 30, 0),
-  //   resourceId: 2,
-  // },
-  // {
-  //   id: 2,
-  //   title: 'Team lead meeting',
-  //   start: new Date(2018, 0, 29, 12, 30, 0),
-  //   end: new Date(2018, 0, 29, 15, 30, 0),
-  //   resourceId: [1, 3],
-  // },
-  // {
-  //   id: 11,
-  //   title: 'Birthday Party',
-  //   start: new Date(2018, 0, 30, 7, 0, 0),
-  //   end: new Date(2018, 0, 30, 10, 30, 0),
-  //   resourceId: 4,
-  // },
+  {
+    id: 5,
+    title: 'Board meeting 2',
+    start: new Date(2018, 0, 29, 8, 0, 0),
+    end: new Date(2018, 0, 29, 10, 0, 0),
+    resourceId: 1,
+    allDay: true,
+  },
+  {
+    id: 1,
+    title: 'MS training',
+    start: new Date(2018, 0, 29, 14, 0, 0),
+    end: new Date(2018, 0, 29, 16, 30, 0),
+    resourceId: 2,
+    allDay: true,
+  },
+  {
+    id: 2,
+    title: 'Team lead meeting',
+    start: new Date(2018, 0, 29, 12, 30, 0),
+    end: new Date(2018, 0, 29, 15, 30, 0),
+    resourceId: [1, 3],
+    allDay: false,
+  },
+  {
+    id: 11,
+    title: 'Birthday Party',
+    start: new Date(2018, 0, 30, 7, 0, 0),
+    end: new Date(2018, 0, 30, 10, 30, 0),
+    resourceId: 4,
+    allDay: false,
+  },
 ]
 
 const resourceMap = [
   { resourceId: 1, resourceTitle: 'Board room' },
-  // { resourceId: 2, resourceTitle: 'Training room' },
-  // { resourceId: 3, resourceTitle: 'Meeting room 1' },
-  // { resourceId: 4, resourceTitle: 'Meeting room 2' },
+  { resourceId: 2, resourceTitle: 'Training room' },
+  { resourceId: 3, resourceTitle: 'Meeting room 1' },
+  { resourceId: 4, resourceTitle: 'Meeting room 2' },
 ]
 
 class MyLayout extends React.Component {
@@ -94,12 +98,25 @@ class ResourceHrLayout extends React.Component {
 
     this.moveEvent = this.moveEvent.bind(this)
   }
-  moveEvent = ({ event, start, end, isAllDay: droppedOnAllDaySlot }) => {
+  moveEvent = ({
+    event,
+    start,
+    end,
+    resourceId,
+    isAllDay: droppedOnAllDaySlot,
+  }) => {
     const { events } = this.state
+    let allDay = event.allDay
+
+    if (!event.allDay && droppedOnAllDaySlot) {
+      allDay = true
+    } else if (event.allDay && !droppedOnAllDaySlot) {
+      allDay = false
+    }
 
     const nextEvents = events.map(existingEvent => {
       return existingEvent.id == event.id
-        ? { ...existingEvent, start, end }
+        ? { ...existingEvent, start, end, resourceId, allDay }
         : existingEvent
     })
 

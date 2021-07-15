@@ -105,7 +105,7 @@ export default class TimeLine extends Component {
     })
   }
 
-  renderEvents(range, events, now) {
+  renderEvents(range, events, alldayEvents, now) {
     let {
       min,
       max,
@@ -113,6 +113,8 @@ export default class TimeLine extends Component {
       accessors,
       localizer,
       dayLayoutAlgorithm,
+      getNow,
+      selectable,
     } = this.props
 
     const resources = this.memoizedResources(this.props.resources, accessors)
@@ -133,14 +135,20 @@ export default class TimeLine extends Component {
           <DayColumn
             {...this.props}
             localizer={localizer}
+            id={id}
             min={dates.merge(date, min)}
             max={dates.merge(date, max)}
             resource={resource && id}
+            resources={this.memoizedResources(resources, accessors)}
             components={components}
             isNow={dates.eq(date, now, 'day')}
             key={i + '-' + jj}
             date={date}
+            alldayEvents={alldayEvents}
+            range={range}
             events={daysEvents}
+            getNow={getNow}
+            selectable={selectable}
             dayLayoutAlgorithm={dayLayoutAlgorithm}
           />
         )
@@ -246,7 +254,7 @@ export default class TimeLine extends Component {
             getters={getters}
           />
           <div className="rbc-time-grid--hr">
-            {this.renderEvents(range, rangeEvents, getNow())}
+            {this.renderEvents(range, rangeEvents, allDayEvents, getNow())}
           </div>
         </div>
       </div>

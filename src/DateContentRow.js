@@ -117,6 +117,7 @@ class DateContentRow extends React.Component {
       resourceId,
       longPressThreshold,
       isAllDay,
+      isTimeline,
     } = this.props
 
     if (renderForMeasure) return this.renderDummy()
@@ -163,7 +164,11 @@ class DateContentRow extends React.Component {
               {range.map(this.renderHeadingCell)}
             </div>
           )}
-          <WeekWrapper isAllDay={isAllDay} {...eventRowProps}>
+          <WeekWrapper
+            isAllDay={isAllDay}
+            isTimeline={isTimeline}
+            {...eventRowProps}
+          >
             {levels.map((segs, idx) => (
               <EventRow key={idx} segments={segs} {...eventRowProps} />
             ))}
@@ -207,6 +212,7 @@ DateContentRow.propTypes = {
 
   getNow: PropTypes.func.isRequired,
   isAllDay: PropTypes.bool,
+  isTimeline: PropTypes.bool,
 
   accessors: PropTypes.object.isRequired,
   components: PropTypes.object.isRequired,
@@ -220,6 +226,7 @@ DateContentRow.propTypes = {
 DateContentRow.defaultProps = {
   minRows: 0,
   maxRows: Infinity,
+  isTimeline: false,
 }
 
 export default DateContentRow
