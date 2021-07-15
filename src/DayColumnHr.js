@@ -433,7 +433,7 @@ DayColumn.propTypes = {
   isNow: PropTypes.bool,
   resources: PropTypes.object,
   alldayEvents: PropTypes.array,
-  id: PropTypes.number,
+  id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
 
   rtl: PropTypes.bool,
 
